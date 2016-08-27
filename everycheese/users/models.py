@@ -13,7 +13,9 @@ class User(AbstractUser):
 
     # First Name and Last Name do not cover name patterns
     # around the globe.
+    # _ is used to translate 
     name = models.CharField(_('Name of User'), blank=True, max_length=255)
+    bio = models.TextField(_('Bio'),blank=True)
 
     def __str__(self):
         return self.username
