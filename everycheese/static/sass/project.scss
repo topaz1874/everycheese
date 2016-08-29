@@ -41,6 +41,7 @@ $red: #b94a48;
 
 .navbar {
   border-radius: 0px;
+  background-color: #132c32;
 }
 
 @media (max-width: 47.9em) {
@@ -59,6 +60,14 @@ $red: #b94a48;
   }
 }
 
+.nav-item {
+  margin:12px;
+}
+.nav-link {
+  color:#D8D8D8;
+  font-size: 14px;
+}
+
 ////////////////////////////////
 		//Django Toolbar//
 ////////////////////////////////
@@ -69,4 +78,10 @@ $red: #b94a48;
 
 [hidden][style="display: block;"] {
   display: block !important;
+}
+
+
+
+.jumbotron {
+   background-color: #a6e9d1;
 }
