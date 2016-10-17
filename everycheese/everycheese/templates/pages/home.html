@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron text-xs-center">
+  <h1 class="display-3">Explore cheese with us!</h1>
+  <p class="lead">Sign up to start experiencing EveryCheese.</p>
+  <p class="lead m-t-2">
+    <a class="btn btn-primary btn-lg" href="{% url 'account_signup' %}" role="button">Join us</a>
+  </p>
+</div>
+<div class="row m-t-3">
+  <div class="col-sm-4">
+    <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Learn</h4>
+          <p class="card-text">This is a site about cheese. Not just one cheese, but all of them. Every single one, good or bad. So much cheese.</p>
+        </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Contribute</h4>
+          <p class="card-text">Collaborate with us in building the world’s largest cheese database. Tell us about the cheeses you eat every day.</p>
+        </div>
+    </div>  </div>
+  <div class="col-sm-4">
+    <div class="card">
+        <div class="card-block">
+          <h4 class="card-title">Have Fun</h4>
+          <p class="card-text">Eating cheese is one of our favorite things to do. If you’re reading this, it’s probably one of yours too.</p>
+        </div>
+    </div>  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+
+{% extends "base.html" %}
+
+{% block title %}Warehouse: {{ object }}{% endblock %}
+
+{% block content %}
+<h2>{{ object }} </h2>
+
+<div class="row">
+    <div class="col-sm-6">
+        <table class="table table-hover">
+{% if object.trans_set %}
+{% for tran in object.trans_set.get_trans_out %}
+            <thead class='thead-default'>
+              <tr>
+                <th>Amount</th>
+                <th>Trans out date</th>
+                <th>Trans out man</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{tran.trans_amount}}</td>
+                <td>{{tran.trans_date}}</td>
+                <td>{{tran.trans_man}}</td>
+              </tr>
+            </tbody>
+{% endfor %}
+{% for tran in object.trans_set.get_trans_in %}
+            <thead class='thead-default'>
+              <tr>
+                <th>Amount</th>
+                <th>Trans in date</th>
+                <th>Trans in man</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{tran.trans_amount}}</td>
+                <td>{{tran.trans_date}}</td>
+                <td>{{tran.trans_man}}</td>
+              </tr>
+            </tbody>
+{% endfor %}
+{% endif %}
+            <thead class='thead-default'>
+                <tr>
+                  <td>Total amount</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-info">
+                    <td>{{object.amount}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    
+</div>
+{% endblock content %}

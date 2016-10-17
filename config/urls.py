@@ -21,7 +21,7 @@ urlpatterns = [
 
     # Your stuff: custom urls includes go here
     url(r'^cheeses/',include('everycheese.cheeses.urls', namespace='cheeses')),
-
+    url(r'^warehouse/',include('everycheese.warehouse.urls', namespace='warehouse')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

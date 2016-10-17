@@ -47,7 +47,8 @@ LOCAL_APPS = (
     # custom users app
     'everycheese.users.apps.UsersConfig',
     # Your stuff: custom apps go here
-    'everycheese.cheeses'
+    'everycheese.cheeses.apps.CheesesConfig',
+    'everycheese.warehouse.apps.WarehouseConfig'
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -237,6 +238,7 @@ if BROKER_URL == 'django://':
     CELERY_RESULT_BACKEND = 'redis://'
 else:
     CELERY_RESULT_BACKEND = BROKER_URL
+CELERY_IMPORTS = ('everycheese.users.tasks')
 ########## END CELERY
 
 
@@ -250,3 +252,5 @@ ADMIN_URL = r'^admin/'
 
 
 # Your common stuff: Below this line define 3rd party library settings
+# AUTOSLUG_SLUGIFY_FUNCTION = everycheese.warehouse.slugify_func
+
