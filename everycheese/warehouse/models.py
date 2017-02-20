@@ -3,6 +3,9 @@
 from __future__ import unicode_literals
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from django.utils.encoding import iri_to_uri
 from django.utils.http import urlquote
 
@@ -54,7 +57,31 @@ class Trans(models.Model):
 
     def __unicode__(self):
         return '%s - %s'  % (self.item.name, str(self.trans_date))
-    
-    # def get_absolute_url(self):
-    #     return iri_to_uri('/warehouse/%s' % urlquote(self.item.slug))
-    #     # return reverse('warehouse:detail', kwargs={'slug': self.item.slug})
+
+    def get_absolute_url(self):
+        # return iri_to_uri('/warehouse/%s' % urlquote(self.item.slug))
+        return reverse('warehouse:trans_archive_day', kwargs={
+            'year': self.trans_date.strftime("%Y"),
+            'month': self.trans_date.strftime("%b"),
+            'day': self.trans_date.strftime("%d"),})
+
+
+@receiver(post_save, sender=Trans)
+def post_save_handler(sender, instance, created, **kwargs):
+    """
+    Everytime Trans Model has been created, the foreignkey item amount
+    will be updated.
+    """
+    if created:
+        instance.item.amount += instance.trans_amount
+        instance.item.save()
+
+
+
+
+
+
+
+
+
+

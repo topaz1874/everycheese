@@ -6,6 +6,7 @@ from django.shortcuts import render, Http404
 from django.forms import ModelForm
 from django.forms import widgets
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic.dates import DateDetailView,DayArchiveView
 from .models import WarehouseItem, Trans
 
 
@@ -33,21 +34,25 @@ class TransCreateView(CreateView):
     template_name = 'warehouse/warehouse_form.html'
     success_url = '/warehouse'
 
+class TransDetailView(DayArchiveView):
+    model = Trans
+    date_field = "trans_date"
+    queryset = Trans.objects.all()
 
-    def post(self, request, *args, **kwargs):
-        """
-        Handles POST requests, instantiating a form instance with the passed
-        POST variables and then checked for validity.
-        """
-        form = self.get_form()
-        if form.is_valid():
-            trans_item = form.cleaned_data['item']
-            trans_amount =  form.cleaned_data['trans_amount']
-            trans_item.amount += trans_amount
-            trans_item.save()
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+    def get_context_data(self, **kwargs):
+        
+        day_items = self.get_dated_items()[2]
+        previous_day =  day_items.get('previous_day', None)
+        next_day = day_items.get('next_day', None)
+        if previous_day:
+            previous_day = Trans.objects.filter(trans_date=previous_day)[0]
+            kwargs['previous_url'] = previous_day.get_absolute_url()
+        if next_day:
+            next_day = Trans.objects.filter(trans_date=next_day)[0]
+            kwargs['next_url'] = next_day.get_absolute_url()
+
+        return super(TransDetailView, self).get_context_data(**kwargs)
+
 
 class WarehouseDetailView(DetailView):
     model = WarehouseItem

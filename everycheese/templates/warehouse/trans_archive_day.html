@@ -1,0 +1,39 @@
+
+{% extends "base.html" %}
+
+{% block title %}Trans_record{% endblock %}
+
+{% block content %}
+<h2>{{ day }} </h2>
+<div class="row">
+  <div class="col-sm-6">
+    <table class="table table-hover">
+      <thead class="thead-default">
+        <tr>
+          <th>tran_man</th>
+          <th>tran_item</th>
+          <th>tran_amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tran in object_list %}
+        <tr>
+          <td>{{tran.trans_man}}</td>
+          <td><a href="{{ tran.item.get_absolute_url }}">{{tran.item}}<a></td>
+          <td>{{tran.trans_amount}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<p>
+    {% if previous_day %}
+        Previous Day: <a href="{{previous_url}}">{{ previous_day }}</a>
+    {% endif %}
+    {% if previous_day and next_day %}--{% endif %}
+    {% if next_day %}
+        Next Day: <a href="{{next_url}}">{{ next_day }}</a>     
+    {% endif %}
+</p>
+{% endblock content %}

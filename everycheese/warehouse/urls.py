@@ -22,5 +22,10 @@ urlpatterns = (
         r'^(?P<slug>[-\w]+)/update/$',
         views.WarehouseUpdateView.as_view(),
         name='update'),
+
+    url(r'^(?P<year>[0-9]{4})/(?P<month>[-\w]+)/(?P<day>[0-9]+)/$',
+        views.TransDetailView.as_view(),
+        name='trans_archive_day'),
  
     )
+
