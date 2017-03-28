@@ -81,3 +81,25 @@ class WarehouseUpdateView(UpdateView):
     fields = '__all__'
     template_name = 'warehouse/warehouse_form.html'
     success_url = '/warehouse'
+
+
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+
+class WarehouseItemForm(ModelForm):
+    class Meta:
+        model = WarehouseItem
+        fields = '__all__'
+
+def warehousejscreate(request):
+
+    form = WarehouseItemForm()
+    context = {'form': form}
+    html_form = render_to_string('warehouse/item_form.html',context, request=request)
+
+    return JsonResponse({'html_form': html_form})
+
+
+
+
+
